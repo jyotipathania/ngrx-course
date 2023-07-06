@@ -1,0 +1,13 @@
+what is NgRx?
+- It is an angular specific state management solution, that allow us to create the client side database with our data
+- It allow us to minimize number of http request to server
+- It allow us to easily render new version of data in different parts of our view
+- Imporves user experience with minimal loading indicator
+
+Install NgRx
+- ng add @ngrx/store
+- It updates app.module.ts import section with "StoreModule.forRoot(reducers, {metaReducers})"
+
+- ng add @ngrx/store-devtools  - It is a browser extension tool that allow us to see the content of our in-memory database in chrome dev tools
+- It updates app.module.ts import section with "StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production})"
+- Install redux dev tool extension in chrome
