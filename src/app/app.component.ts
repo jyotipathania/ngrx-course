@@ -3,6 +3,7 @@ import {select, Store} from "@ngrx/store";
 import {Observable} from "rxjs";
 import {map} from 'rxjs/operators';
 import {NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router} from '@angular/router';
+import { logout } from './auth/auth.action';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +14,7 @@ export class AppComponent implements OnInit {
 
     loading = true;
 
-    constructor(private router: Router) {
+    constructor(private router: Router, private store:Store) {
 
     }
 
@@ -41,7 +42,8 @@ export class AppComponent implements OnInit {
     }
 
     logout() {
-
+        this.store.dispatch(logout());
+        this.router.navigateByUrl("/")
     }
 
 }

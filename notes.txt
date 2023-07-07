@@ -41,3 +41,27 @@ Install NgRx
 
         so above eg: modifies to 
         thos.store.dispatch(login({user})) /**** {user} is payload ***/
+
+
+ - Reducer(NgRx key): It is plain javascript function it will take current state of store, action and return the new state of Store in response to action.
+    eg: 
+    function authReducer(state, action): Store{}
+
+    export interface AuthState {
+
+    }
+    export const reducers: ActionReducer<AuthState> = {
+        
+    };
+
+    // rewriting in Ngrx way "function authReducer(state, action): Store{}"
+
+    export const authReducer = createReducer({
+        initialAuthState,
+        on(AuthAction.login, (state,action)=>{
+            return {
+                user: action.user
+            }
+        })
+    })
+       
