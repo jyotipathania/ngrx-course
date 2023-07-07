@@ -16,3 +16,28 @@ Install NgRx
 - ngRx Schematic commands
   - ng generate store auth/Auth --module auth.module.ts   => this add some store configuration to auth.module.ts
 
+
+
+- Store Service API - It allow us to communicate with in-memory database
+
+- Action(NgRx key):  Action is a plain javascript object which we send to "Store" in order to trigger modification.
+   - Its more often an event reporting something happened at component level
+   - Action always has a type and payload but not manadatory.
+   - dispatching of action is the only way to modifiy the stored state 
+
+        eg: this.store.dispatch({
+            type: "Login Action",
+            payload: { 
+                user //*** or user: user
+            }  
+        })
+
+        better way to write action is to create separate action file (eg: auth.action.ts)
+        
+        export const login = createAction(
+            "[Login Page] User Login", //*** [Login Page] is source of action from where it is triggered  and second part "User Login" is event which occured with this action.
+            props<{user: User}>()  //*** props is function from "Store" which do not take any argument but only payload
+            );
+
+        so above eg: modifies to 
+        thos.store.dispatch(login({user})) /**** {user} is payload ***/
