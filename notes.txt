@@ -65,3 +65,41 @@ Install NgRx
         })
     })
        
+ Optimising Plain mapping function with Store provided selector mapping function
+
+ Since the Observable get trigger whenever a new action dispatch to store.. this.isLoggedIn$ gets triggered which is not required.. It should only 
+ be triggered when the value of "user has been changed"
+
+ old implementation
+     this.isLoggedIn$ = this.store.pipe(
+        map((store)=> !!store["auth"].user)
+      )
+
+ Optimized implementation
+    need to create selector for auth (auth.selector.ts) 
+    // We can pass multiple arguments related to store state, minimum two arguments are required, last agrument is projector function which returns the consolidated data
+    // Its a mapping funciton or Memoized function created using createSelector has memory as long as input state of "auth" not changed the output wil not be calculated
+        export const isLoggedIn = createSelector(
+            (store)=> store["auth"],
+            (auth) => !!auth.user
+        )
+
+
+     this.isLoggedIn$ = this.store.pipe(select(isLoggedIn))
+
+
+  Writing a typed safed version of this implementation using createFeatureSelector. It only take one argument which is the name of the property we want to access from root Store
+
+   current version: 
+        export const isLoggedIn = createSelector(
+            (store)=> store["auth"],
+            (auth) => !!auth.user
+        )   
+
+
+  Updated version: 
+        export const selectAuthState = createFeatureSelector<AuthState>("auth")
+         export const isLoggedIn = createSelector(
+            selectAuthState,
+            (auth) => !!auth.user
+        )  
