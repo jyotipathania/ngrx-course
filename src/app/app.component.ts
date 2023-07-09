@@ -4,6 +4,7 @@ import {Observable} from "rxjs";
 import {map} from 'rxjs/operators';
 import {NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router} from '@angular/router';
 import { logout } from './auth/auth.action';
+import { AppState } from './reducers';
 
 @Component({
   selector: 'app-root',
@@ -13,12 +14,16 @@ import { logout } from './auth/auth.action';
 export class AppComponent implements OnInit {
 
     loading = true;
+    isLoggedIn$: Observable<boolean>;
+    isLoggedOut$: Observable<boolean>;
 
-    constructor(private router: Router, private store:Store) {
+    constructor(private router: Router, private store:Store<AppState>) {
 
     }
 
     ngOnInit() {
+
+    
 
       this.router.events.subscribe(event  => {
         switch (true) {
@@ -38,6 +43,13 @@ export class AppComponent implements OnInit {
           }
         }
       });
+      this.isLoggedIn$ = this.store.pipe(
+        map((store)=> !!store["auth"].user)
+      )
+
+      this.isLoggedOut$ = this.store.pipe(
+        map((store)=> !store['auth'].user)
+      )
 
     }
 
