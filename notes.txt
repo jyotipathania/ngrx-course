@@ -102,4 +102,13 @@ Install NgRx
          export const isLoggedIn = createSelector(
             selectAuthState,
             (auth) => !!auth.user
-        )  
+        )
+
+
+  NgRx Effect - In order to presist the store data we can user "Effects" to store in the third party storage (localstorage or on backend server)
+                whenever user refresh browser we can fetch data from third party storage and update store data
+
+                implementation: 
+                import EffectsModule.forRoot([]) in root module with .forRoot
+                import EffectsModule.forFeature([]) in auth module(feature module) with .forFeature
+
