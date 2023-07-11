@@ -141,3 +141,5 @@ Install NgRx
                     )
             ,{dispatch: false})
 
+
+        - In order to initialize the 3rd party storage data the best place is the root component of application which app.component.ts
