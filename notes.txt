@@ -129,3 +129,15 @@ Install NgRx
                 }
             }       
 
+
+            Optimized implementation using NgRx createEffect
+
+            login$ = createEffect(()=>
+                    this.actions$.pipe(
+                        ofType(AuthActions.login),
+                        tap((action)=>{
+                            localStorage.setItem('user', JSON.stringify(action.user))
+                        })
+                    )
+            ,{dispatch: false})
+
