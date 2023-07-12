@@ -55,10 +55,19 @@ const routes: Routes = [
     MatListModule,
     MatToolbarModule,
     AuthModule.forRoot(),
-    StoreModule.forRoot({}, {}),
+    StoreModule.forRoot(fromApp.reducers, { metaReducers: fromApp.metaReducers,
+    runtimeChecks: {
+      strictStateImmutability: true,
+      strictActionImmutability: true,
+      strictActionSerializability: true,
+      strictStateSerializability: true
+    } }),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
-    StoreModule.forFeature(fromApp.appFeatureKey, fromApp.reducers, { metaReducers: fromApp.metaReducers }),
-    EffectsModule.forRoot([])
+    EffectsModule.forRoot([]),
+    StoreRouterConnectingModule.forRoot({ // To setup time traveller debugger in Redux dev tool
+      stateKey: 'router', // this will add the "router" state inside state
+      routerState: RouterState.Minimal
+    })
   ],
   bootstrap: [AppComponent]
 })

@@ -143,3 +143,5 @@ Install NgRx
 
 
         - In order to initialize the 3rd party storage data the best place is the root component of application which app.component.ts
+
+        - MetaReducer : MetaReducer executes before the normal reducers execution after action is dispatch 
